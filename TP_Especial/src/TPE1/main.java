@@ -22,8 +22,11 @@ public class main {
 		System.out.println();
 		System.out.println("----Existencia Arcos-----");
 		System.out.println();
+		System.out.println("----Existencia Arco entre 1 y 2-----");
 		System.out.println(grafo.existeArco(1, 2));
+		System.out.println("----Existencia Arco entre 1 y 5-----");
 		System.out.println(grafo.existeArco(1, 5));
+		System.out.println("----Existencia Arco entre 2 y 1-----");
 		System.out.println(grafo.existeArco(2, 1));
 		System.out.println();
 		System.out.println("----Mostrar Grafo-----");
@@ -38,11 +41,11 @@ public class main {
 		System.out.println();
 		System.out.println(grafoBFS.bfsForest().toString());
 		System.out.println();
-		System.out.println("----Caminos Grafo-----");
+		System.out.println("----Caminos Grafo de 1 a 6-----");
 		System.out.println();
 		System.out.println(grafoCaminos.caminos().toString());
 		System.out.println();
-		System.out.println("----Borrado de Vertice Grafo-----");
+		System.out.println("----Borrado de Vertice 1 Grafo-----");
 		System.out.println();
 		grafo.borrarVertice(1);
 		grafo.imprimirGrafo();
