@@ -1,0 +1,15 @@
+package JuegoPersonajes;
+
+import java.util.ArrayList;
+
+public class Juego {
+	String nombre;
+	ArrayList<Personaje> heroes;
+	ArrayList<Personaje> villanos;
+	
+	public  Juego(String nombre) {
+		this.nombre = nombre;
+		this.heroes = new ArrayList<>();
+		this.villanos = new ArrayList<>();
+	}
+}

@@ -1,0 +1,5 @@
+package PracticaParcialito;
+
+public class Cama extends ElementoHospital {
+
+}

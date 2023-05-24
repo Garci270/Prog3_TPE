@@ -1,0 +1,41 @@
+package Programacion1;
+
+public class Arr17{
+	public static int MAX = 10;
+	public static void main(String[]args){
+		int [] arrA = new int[MAX];
+		int [] arrB = new int[MAX];
+		eliminar_valores(arrA,arrB);
+	}
+
+	public static int fin_sec_primos(){
+		return 1;
+	}
+	
+	public static void eliminar_valores(int[]arrA, int[]arrB){
+		int fin = fin_sec_primos();
+		int pos = 0;
+		while(arrB[fin] != 0){
+			if(arrB[fin] % 2 == 0 || arrB[fin] % 3 == 0){
+				fin--;
+			}else{
+				while(pos < MAX){
+					if(arrA[pos] == arrB[fin]){
+						corrimiento_izquierda(arrA,pos);
+					}else{
+						pos++;
+					}
+				}
+				fin--;
+			}
+		}
+	}
+
+	public static void corrimiento_izquierda(int [] arrA, int pos){
+		int indice = pos;
+		while(indice < MAX){
+			arrA[indice] = arrA[indice+1];
+		}
+	}
+}
+

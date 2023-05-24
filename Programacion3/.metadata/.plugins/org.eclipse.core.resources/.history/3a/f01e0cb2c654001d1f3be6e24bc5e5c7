@@ -1,0 +1,29 @@
+package PracticaParcialito;
+
+public class main {
+
+	public static void main(String[] args) {
+		Establecimiento e = new Establecimiento();
+		
+		Paciente agustin = new Paciente("Agustin", 19);
+		Paciente redolfo = new Paciente("Redolfo", 22);
+		
+		Cama cama = new Cama(null);
+		Cama cama2 = new Cama(null);
+		Establecimiento pasillo = new Establecimiento();
+		
+		e.addElemento(cama);
+		e.addElemento(cama2);		
+		e.addElemento(pasillo);
+		pasillo.addElemento(cama);
+		pasillo.addElemento(cama2);
+
+		System.out.println(e.ocuparCama(agustin, cama, new FiltroEdadMenor(25)));
+		
+		
+		
+		
+		
+	}
+
+}

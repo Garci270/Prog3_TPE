@@ -1,0 +1,32 @@
+package TPE1;
+
+import java.util.Iterator;
+
+public class Iterador<T> implements Iterator<T>{
+	
+	private Nodo<T> cursor;
+	
+	public Iterador(Nodo<T> cursor) {
+		this.cursor = cursor;
+	}
+	
+	
+
+	public Nodo<T> getCursor() {
+		return cursor;
+	}
+	
+
+	@Override
+	public boolean hasNext() {
+		return this.cursor.getSiguiente() != null;
+	}
+
+	@Override
+	public T next() {
+		T valor = cursor.getObjeto();
+		cursor = cursor.getSiguiente();
+		return valor;
+	}
+
+}

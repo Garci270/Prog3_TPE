@@ -1,0 +1,10 @@
+package ContactosCelular;
+
+public class main {
+
+	public static void main(String[] args) {
+		Celular celular = new Celular("celular");
+		Contacto javier = new Contacto("Javier","Gonzalez","",223,"Viamonte 543","agusiashfa@amsdma","Bolivar");
+	}
+
+}

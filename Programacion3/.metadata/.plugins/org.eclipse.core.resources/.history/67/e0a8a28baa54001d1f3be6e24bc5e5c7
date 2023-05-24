@@ -1,0 +1,11 @@
+package PracticaParcialito;
+
+public class FiltroSintomas extends Filtro {
+
+	@Override
+	public boolean cumple(Paciente p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

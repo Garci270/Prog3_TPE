@@ -1,0 +1,61 @@
+package Programacion1;
+
+public class Arr18{
+	public static int MAX = 10;
+	public static void main(String[]args){
+		int [] arrB = {1,2,3,4,5,6,7,8,9,10};
+		int [] arrA = {0,7,10,3,13,0,0,0,0,0};
+		imprimir_arreglo(arrA);
+		System.out.println();
+		imprimir_arreglo(arrB);
+		realizar_cambio(arrB,arrA);
+		System.out.println();
+		System.out.println();
+		imprimir_arreglo(arrA);
+		System.out.println();
+		imprimir_arreglo(arrB);
+	}
+
+	public static int sec_menor_multiplo(){
+		return 1;
+	}
+
+	public static void realizar_cambio(int[]arrB,int[]arrA){
+		int inicio = sec_menor_multiplo();
+		int pos = 0;
+		while(arrA[inicio] != 0){
+			if(arrA[inicio] % 5 == 0 && arrA[inicio] != 5){
+				inicio++;
+			}else{
+				pos = 0;
+				while(pos < MAX){
+					if(arrA[inicio] <= arrB[pos] && pos != MAX-1){
+						corrimiento_derecha(arrB,pos);
+						arrB[pos] = arrA[inicio];
+						break;
+					}
+					if(pos == MAX-1) {
+						arrB[pos] = arrA[inicio];
+						break;
+					}
+					pos++;
+				}
+				inicio++;
+			}
+		}
+	}
+
+	public static void corrimiento_derecha(int[]arrA,int pos){
+		int indice = MAX-1;
+		while(indice >= pos+1){
+			arrA[indice] = arrA[indice-1];
+			indice--;
+		}
+	}
+	
+	public static void imprimir_arreglo(int []arr) {
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+}

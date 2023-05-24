@@ -1,0 +1,24 @@
+package PracticaParcialito;
+
+import java.util.ArrayList;
+
+public class Cama extends ElementoHospital {
+	private ArrayList<String> equipamiento;
+	private Paciente paciente;
+	
+	public Cama(Paciente p) {
+		this.paciente = p;
+		this.equipamiento = new ArrayList<>();
+	}
+	
+	
+	@Override
+	public int totalCamas(Filtro f1) {
+		if(f1.cumple(paciente)) {			
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+
+}

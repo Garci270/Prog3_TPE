@@ -1,0 +1,84 @@
+
+
+package Programacion1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Arreglos1 {
+	public static final int MAXVALOR = 10;
+	public static final int MINVALOR = 1;
+	public static final int MAX = 20;
+	public static void main(String[]args){
+		int arrint []= {0,4,7,5,0,0,5,8,9,6,3,1,0,4,7,0,0};
+		imprimir_arreglo(arrint);
+		eliminar_secuencia_tamanio(pedir_numero(),arrint);
+		imprimir_arreglo(arrint);
+	}
+	public static void imprimir_arreglo(int [] arr) {
+		for(int i = 0; i <= arr.length-1; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+
+	public static int pedir_numero(){
+		int numero = 0;
+		System.out.println("Ingrese un tamaño de secuencia a eliminar");
+		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+		try{
+			numero = Integer.valueOf(entrada.readLine());
+		}catch(Exception exc){
+			System.out.println("Error");
+		}
+		return numero;
+	}
+
+	public static int buscar_tamanio_secuencia(int pos, int[] arr){
+		int cantidad = 0;
+		while(pos <= arr.length-1 && arr[pos] != 0){
+			cantidad++;
+			pos++;
+		}
+		return cantidad;
+	}
+
+
+
+		
+	public static int eliminar_secuencia(int pos, int [] arr){
+		while(arr[pos] != 0){
+			arr[pos] = 0;
+			pos++;
+		}
+	return pos;
+	}
+
+
+
+	public static void eliminar_secuencia_tamanio(int numero, int [] arr){
+		int tamanio;
+		int pos = 0;
+		for(int i = pos; i <= arr.length-1; i++){
+			if(arr[i] != 0){
+				tamanio = buscar_tamanio_secuencia(i, arr);
+				if(numero == tamanio){
+					i = eliminar_secuencia(i,arr);
+				}else{
+					i+=tamanio;
+				}
+
+			}
+		}
+	}
+
+
+
+
+}
+
+
+
+	
+
+

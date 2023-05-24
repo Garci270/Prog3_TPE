@@ -1,0 +1,16 @@
+package PracticaParcialito;
+
+public class FiltroEquipamiento extends Filtro {
+	private String equipamiento;
+	
+	public FiltroEquipamiento(String equipamiento) {
+		this.equipamiento = equipamiento;
+	}
+	
+	@Override
+	public boolean cumple(Paciente p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

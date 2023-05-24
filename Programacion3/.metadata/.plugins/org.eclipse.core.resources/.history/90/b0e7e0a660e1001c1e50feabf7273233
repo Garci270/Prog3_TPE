@@ -1,0 +1,73 @@
+
+
+package Programacion1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Arreglos1 {
+	public static final int MAXVALOR = 10;
+	public static final int MINVALOR = 1;
+	public static final int MAX = 20;
+	public static void main(String[]args){
+		int arrint []= {0,4,6,7,0,0,4,5,6,7,8,0,4,7,7,0};
+		imprimir_arreglo(arrint);
+		System.out.println(" ");
+		eliminar_secuencias_des(arrint);
+		imprimir_arreglo(arrint);
+	}
+	public static void imprimir_arreglo(int [] arr) {
+		for(int i = 0; i <= arr.length-1; i++) {
+			System.out.print(arr[i]);
+		}
+	}
+	
+	
+	public static void eliminar_secuencias_des(int[]arr) {
+		int inc_sec;
+		int fin_sec;
+		for(int i = 0; i < arr.length;i++) {
+			if(arr[i] != 0) {
+				fin_sec = buscar_fin_secuencia(i, arr);
+				if(sec_desc(i, fin_sec, arr)) {
+					eliminar_sec(i, fin_sec, arr);
+				}
+				i = fin_sec+1;
+			}
+		}
+	}
+	
+	public static int buscar_fin_secuencia(int pos,int[]arr) {
+		while(arr[pos+1] != 0 && pos < arr.length) {
+			pos++;
+		}
+		return pos;
+	}
+	
+	
+	public static boolean sec_desc(int inicio,int fin, int[]arr){
+		boolean desc = false;
+		for(int i = inicio; i <= fin-1; i++) {
+			if(arr[i] > arr[i+1]) {
+				desc = true;
+			}
+		}
+		return desc;
+	}
+	
+	public static void eliminar_sec(int inicio,int fin,int []arr) {
+		for(int i = inicio; i <= fin; i++) {
+			arr[i] = 0;
+		}
+	}
+
+
+
+}
+
+
+
+	
+
+

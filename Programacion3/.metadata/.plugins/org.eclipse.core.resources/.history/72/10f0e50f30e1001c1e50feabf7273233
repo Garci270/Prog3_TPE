@@ -1,0 +1,45 @@
+
+
+package Programacion1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Arreglos1 {
+	public static final int MAXVALOR = 10;
+	public static final int MINVALOR = 1;
+	public static final int MAX = 20;
+	public static void main(String[]args){
+		int arrint []= {0,4,7,5,0,0,5,8,9,6,3,1,0,4,7,0,0};
+		int arrintnew [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		imprimir_arreglo(arrint);
+		imprimir_arreglo(arrint);
+	}
+	public static void imprimir_arreglo(int [] arr) {
+		for(int i = 0; i <= arr.length-1; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+
+	public static int numero_ingresado(){
+		int numero = 0;
+		System.out.println("Ingrese un tamaño de secuencia:");
+		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+		try{
+			numero = Integer.valueOf(entrada.readLine());
+		}catch(Exception exc){
+			System.out.println("Error");
+		}
+		return numero;
+	}
+
+
+
+}
+
+
+
+	
+
+

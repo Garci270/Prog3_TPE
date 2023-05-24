@@ -1,0 +1,23 @@
+package JuegoPersonajes;
+
+public class Personaje {
+	String nombre;
+	String nombre_heroe;
+	int vision_nocturna;
+	int velocidad;
+	int fuerza;
+	int peso;
+	int altura;
+	int edad;
+
+	public Personaje(String nombre, String nombre_heroe, int vis, int vel, int fuer, int peso,int alt,int edad) {
+		this.nombre = nombre;
+		this.nombre_heroe = nombre_heroe;
+		this.vision_nocturna = vis;
+		this.velocidad = vel;
+		this.fuerza = fuer;
+		this.peso = peso;
+		this.altura = alt;
+		this.edad = edad;
+	}
+}

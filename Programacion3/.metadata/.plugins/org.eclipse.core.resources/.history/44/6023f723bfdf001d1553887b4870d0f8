@@ -1,0 +1,38 @@
+package Practico2_1;
+
+public class Arbol<T> {
+	private Node<Integer> first;
+	private int size;
+	
+	public Arbol() {
+		this.first = null;
+		this.size = 0;
+	}
+	
+	public boolean isEmpty() {
+		if(this.first == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void insert(Integer info) {
+		Node<Integer> temp = new Node(info,null,null);
+		Node<Integer> it = this.first;
+		if(this.first == null) {
+			this.first = temp;
+			return;
+		}
+		if(info > this.first.getInfo()) {
+			while(it.getDer() != null) {
+				
+			}
+		}else {
+			while(it.getIzq() != null) {
+				
+			}
+		}
+		
+	}
+	
+}

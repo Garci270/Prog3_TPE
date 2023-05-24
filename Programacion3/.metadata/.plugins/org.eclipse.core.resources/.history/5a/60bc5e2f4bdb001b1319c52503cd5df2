@@ -1,0 +1,123 @@
+/*Se tiene dos matrices MatA y MatB de NxM de tipo caracter. En cada fila de MatA y MatB hay una o más secuencias
+de letras distintas del caracter espacio, separadas por uno o más caracteres espacios.
+Se pide agregar la mayor cantidad de secuencias no repetidas de MatB en MatA, considerando que dichas
+secuencias no existan en MatA, que al agregar una secuencia en una fila de MatA se está reemplazando caracteres
+espacios consecutivos por una secuencia de letras distintas del carácter espacio, donde además la nueva secuencia
+debe quedar separada de las ya existentes.*/
+package prog1;
+
+import java.util.Random;
+
+public class Practica_FinalLibre_5 {
+	public static final int MAXFILA = 5;
+	public static final int MAXCOLUMNA = 10;
+	public static final int MAXVALOR = 9;
+	public static final int MINVALOR = 1;
+	public static final double probabilidad_numero = 0.4;
+	public static void main(String[] args) {
+		char [][] matchar;
+		char [][] matcharB;
+		matcharB = new char [MAXFILA][MAXCOLUMNA];
+		matchar = new char [MAXFILA][MAXCOLUMNA];
+		cargar_matriz_aleatoria_secuencias_char(matchar, matcharB);
+		imprimir_matriz_char(matchar, matcharB);
+		realizar_cambio_secuencia(matchar, matcharB);
+		imprimir_matriz_char(matchar, matcharB);
+	}
+	
+	public static int obtener_inicio_secuencia(char[] matchar, int inicio) {
+		while((inicio < MAXCOLUMNA-1)&&(matchar[inicio]== ' '))			
+			inicio++;							
+			return inicio;			
+		
+	}
+	
+	public static int obtener_fin_secuencia(char[] matchar, int inicio) {
+		while((inicio < MAXCOLUMNA)&&(matchar[inicio]!= ' ')) 
+			inicio++;
+			return inicio-1;
+	}
+	
+	public static void realizar_cambio_secuencia(char [][] mat, char [][] matB) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			cambiar_secuencia_no_repetida(mat[fila], matB[fila]);
+		}
+	}
+	
+	public static void cambiar_secuencia_no_repetida(char [] mat, char [] matB) {
+		int inicio, fin,cantidad, secuencia, espacio;
+		inicio = 0;
+		fin = -1; 
+		while(inicio < MAXCOLUMNA-1) {
+			inicio = obtener_inicio_secuencia(matB, fin+1);
+			fin = obtener_fin_secuencia(matB, inicio);
+			cantidad = fin - inicio +1;
+			secuencia = buscar_secuencia_repetida(mat, matB,inicio,fin); 
+			espacio = buscar_espacio(mat, cantidad);
+			if(espacio != 0) {
+				reemplazar_secuencia(mat, matB, secuencia, espacio);
+			}
+		}
+	}
+	
+	public static void reemplazar_secuencia(char[] mat, char[] matB, int secuencia, int espacio) {
+		mat[espacio+1] = matB[secuencia]; 
+		
+	}
+	
+	public static int buscar_secuencia_repetida(char [] mat, char[] matB, int inicio, int fin) {
+		for(int i = inicio; i <= fin; i++) {
+			
+		}
+		return inicio;
+	}
+	
+	public static int buscar_espacio(char[]mat, int cantidad) {
+		for(int pos = 0; pos <= pos+cantidad+2; pos++) {
+			if(mat[pos] == ' ') {
+				return pos;
+			}
+		}
+		return 0;
+	}
+	
+	
+	
+	public static void cargar_matriz_aleatoria_secuencias_char(char [][] mat, char [][] matB) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			cargar_matriz_secuencia_aleatorio_char(mat[fila]);
+			cargar_matriz_secuencia_aleatorio_char(matB[fila]);
+		}
+		System.out.println("");
+	}
+	
+	public static void cargar_matriz_secuencia_aleatorio_char(char []arr) {
+		Random r = new Random();
+		arr[0]= ' ';
+		arr[MAXCOLUMNA-1] = ' ';
+		for(int pos = 1; pos < MAXCOLUMNA-1; pos++) {
+			if(r.nextDouble()>probabilidad_numero) {
+				arr[pos]= (char) (r.nextInt(26)+'a');
+			}else {
+				arr[pos]= ' ';
+			}
+		}
+	}
+	
+	
+	public static void imprimir_matriz_char(char[][] mat,char[][] matB) {
+		System.out.println("");
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			imprimir_arreglo_secuencia_char(mat[fila]);
+			imprimir_arreglo_secuencia_char(matB[fila]);
+			System.out.println("");
+		}
+	}
+	
+	public static void imprimir_arreglo_secuencia_char(char[]arr) {
+		System.out.print("|");
+		for(int pos = 0; pos < MAXCOLUMNA; pos++) {
+			System.out.print(arr[pos]+"|");
+		}
+	}
+}

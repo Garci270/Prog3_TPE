@@ -1,0 +1,74 @@
+package ContactosCelular;
+
+import java.util.ArrayList;
+
+public class Celular {
+	private String nombre;
+	private ArrayList<Contacto> contactos;
+	
+	public Celular(String nombre) {
+		this.nombre = nombre;
+		this.contactos = new ArrayList<>();
+	}
+	
+	public void listaContactos() {
+		for(int i = 0; i < this.contactos.size(); i++) {
+			this.imprimirContacto(this.contactos.get(i));
+		}
+	}
+	
+	private void imprimirContacto(Contacto c) {
+		System.out.println("Contacto: "+c.getApellido() + " "+c.getNombre());
+		System.out.println("Edad: "+c.getEdad());
+		System.out.println("Numero: "+c.getNumero());
+		System.out.println("Ciudad: "+c.getCiudad());
+		System.out.println("");
+	}
+	
+	public void setContacto(Contacto c) {
+		this.contactos.add(c);
+	}
+	
+	public void resumenCelular() {
+		System.out.println("Cantidad de contactos: "+this.contactos.size());
+		System.out.println("El promedio de edades de tus contactos es de: "+this.promedioContactos());
+		System.out.println("La cantidad de contactos repetidos es de: "+this.contactosRepetidos());
+	}
+	
+	private int promedioContactos() {
+		int edades = 0;
+		for(int i = 0; i < this.contactos.size(); i++) {
+			edades+=this.contactos.get(i).getEdad();
+		}
+		return edades/this.contactos.size();
+	} 
+	
+	private int contactosRepetidos() {
+		int repetidos = 0;
+		for (int i = 0; i <this.contactos.size(); i++){
+			for (int j = i + 1; j <this.contactos.size(); j++){
+				if (this.contactos.get(i).equals(this.contactos.get(j))) {
+	                repetidos++;
+	            }
+	        }
+		}
+		return repetidos;
+	}
+	
+	public void contactosRepetidosTelefono() {
+		boolean paso = false;
+		int cantidad = 0;
+		 for (int i = 0; i < this.contactos.size(); i++){	
+			 paso = false;
+			 for (int j = i + 1; j <this.contactos.size(); j++){
+	            if (this.contactos.get(i).getNumero() == this.contactos.get(j).getNumero()) {
+	            	if(!paso) {
+	            		this.imprimirContacto(this.contactos.get(i));
+	            		paso = true;	            		
+	            	}
+	                this.imprimirContacto(this.contactos.get(j));
+	            }
+	        }
+		 }
+	}
+}

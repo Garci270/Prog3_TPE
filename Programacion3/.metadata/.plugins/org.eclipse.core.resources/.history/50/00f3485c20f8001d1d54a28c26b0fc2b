@@ -1,0 +1,132 @@
+package TPE1;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+
+public class GrafoDirigido<T> implements Grafo<T>{
+	private Map<Integer, LinkedList<Arco>> grafos;
+	private Integer verticeAux;
+	private HashSet<Integer> visitados;
+	private HashSet<Arco> arcosVisitados;
+	
+	public GrafoDirigido() {
+        this.grafos = new HashMap<>();
+    }
+	
+	/*la complejidad de tiempo total de la función addVertice es O(1), ya que tanto la verificación como la inserción en el mapa tienen complejidad constante.*/
+	@Override
+	public void agregarVertice(int verticeId) {
+		if(!grafos.containsKey(verticeId)) {
+			grafos.put(verticeId, new LinkedList<Arco>());
+		}
+	}
+
+	/* la complejidad de tiempo total de la función deleteVertice es O(V + n), 
+	 * ya que se eliminan el vértice(V) y las aristas(n) asociadas al mismo.
+	 *  El costo principal está en el bucle externo que recorre los vértices y el bucle interno que recorre las aristas.*/
+	@Override
+	public void borrarVertice(int verticeId) {
+		boolean estaBorrado =false;
+		grafos.remove(verticeId);
+		Iterator <Integer> auxAdya = grafos.keySet().iterator();
+		while(auxAdya.hasNext()) {
+			int aux = auxAdya.next(); 
+			Iterator<Arco>iteArc = grafos.get(aux).iterator();			
+			while(estaBorrado!=true&&iteArc.hasNext()) {
+				Arco arcos = iteArc.next();
+				if(arcos.getVerticeDestino()==verticeId) {						
+					iteArc.remove();
+					estaBorrado=true;
+				}
+				estaBorrado=false;
+			}		
+		}
+	}
+	
+	/*la complejidad de tiempo total de la función findArco es O(n), ya que se itera sobre los arcos asociados al verticeId1. La complejidad depende del número de arcos y no del tamaño total del grafo.*/
+	public boolean findArco(int verticeId1, int verticeId2) {
+		Iterator<Arco> iteradorArco = grafos.get(verticeId1).iterator();
+		while(iteradorArco.hasNext()) {
+			Arco arcoBuscado = iteradorArco.next();
+			if(arcoBuscado.getVerticeDestino() == verticeId2) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*la complejidad de tiempo total de la función addArco es O(1), ya que tanto la verificación como la inserción tienen complejidad constante.*/
+	public boolean addArco(int v1, int v2) {
+		if(grafos.containsKey(v1) && grafos.containsKey(v2)) {
+			grafos.get(v1).add(new Arco(v1, v2, 1));
+			return true;
+		}
+		return false;
+	}
+	
+	/*la complejidad de tiempo total de la función getArcos es O(1), ya que se realiza una búsqueda en el mapa y se devuelve un iterador sobre la lista vinculada en tiempo constante.*/
+	private Iterator<Arco> getArcos(int v1){
+		return grafos.get(v1).iterator();
+	}
+	
+	/* la complejidad de tiempo total de la función getVertices es O(1), ya que se realiza una operación de conjunto y se devuelve un iterador en tiempo constante.*/
+	private Iterator<Integer> getVertices(){
+		return grafos.keySet().iterator();
+	}
+	
+
+	/*la complejidad de tiempo total de la función getAdyacentes es O(1), ya que se realiza una búsqueda en el mapa y se crea un iterador en tiempo constante.*/
+	private Iterator<Integer> getAdyacentes(int verticeId){
+		Iterator<Arco> aux =  grafos.get(verticeId).iterator();
+		return new ArcoIterator<>(aux);
+	}
+	
+	/* la complejidad de tiempo total de la función printGrafo es O(V + n), ya que se itera sobre los vértices(V) y los arcos(n) una vez en el peor caso.*/
+	public void printGrafo() {
+        for (Map.Entry<Integer, LinkedList<Arco>> entrada : this.grafos.entrySet()) {
+            System.out.print(entrada.getKey() + ": ");
+            for (int i = 0; i < entrada.getValue().size(); i++) {
+                System.out.print(entrada.getValue().get(i).getVerticeDestino() + " ");
+            }
+            System.out.println();
+        }
+    }
+	
+	//Getters y Setters
+	public Map<Integer, LinkedList<Arco>> getGrafos() {
+		return grafos;
+	}
+
+	public void setGrafos(Map<Integer, LinkedList<Arco>> grafos) {
+		this.grafos = grafos;
+	}
+
+	public Integer getVerticeAux() {
+		return verticeAux;
+	}
+
+	public void setVerticeAux(Integer verticeAux) {
+		this.verticeAux = verticeAux;
+	}
+
+	public HashSet<Integer> getVisitados() {
+		return visitados;
+	}
+
+	public void setVisitados(HashSet<Integer> visitados) {
+		this.visitados = visitados;
+	}
+
+	public HashSet<Arco> getArcosVisitados() {
+		return arcosVisitados;
+	}
+
+	public void setArcosVisitados(HashSet<Arco> arcosVisitados) {
+		this.arcosVisitados = arcosVisitados;
+	}
+
+}

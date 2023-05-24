@@ -1,0 +1,26 @@
+package ContactosCelular;
+
+public class main {
+
+	public static void main(String[] args) {
+		Celular celular = new Celular("celular");
+		Contacto javier = new Contacto("Javier","Gonzalez","1999-08-16",223,"Viamonte 543","agusiashfa@amsdma","Bolivar");
+		Contacto javier1 = new Contacto("Javier","Gonzalez","1999-08-16",223,"Viamonte 543","agusiashfa@amsdma","Bolivar");
+		Contacto manuel = new Contacto("manuel","fulano","2006-08-16",897,"Viamonte 543","agusiashfa@amsdma","Bolivar");
+		Contacto gonzalo = new Contacto("gonzalo","piero","2000-08-16",546,"Viamonte 543","agusiashfa@amsdma","Bolivar");
+		Contacto agustin = new Contacto("agustin","fulano","2003-08-16",223,"Viamonte 543","agusiashfa@amsdma","Bolivar");
+		celular.setContacto(agustin);
+		celular.setContacto(javier);
+		celular.setContacto(javier1);
+		celular.setContacto(manuel);
+		celular.setContacto(gonzalo);
+		System.out.println("Lista");
+		celular.listaContactos();
+		System.out.println("Repe");
+		celular.contactosRepetidos();
+		System.out.println("Repe telefono");
+		celular.contactosRepetidosTelefono();
+	
+	}
+
+}

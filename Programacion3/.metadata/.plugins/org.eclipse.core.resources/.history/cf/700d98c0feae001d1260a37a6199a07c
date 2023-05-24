@@ -1,0 +1,55 @@
+package Programacion1;
+
+public class Arr17{
+	public static int MAX = 10;
+	public static void main(String[]args){
+		int [] arrA = {1,7,7,2,3,5,11,10,9,8};
+		int [] arrB = {0,7,2,3,5,0,0,0,0,0};
+		imprimir_arreglo(arrA);
+		System.out.println();
+		imprimir_arreglo(arrB);
+		System.out.println();
+		eliminar_valores(arrA,arrB);
+		imprimir_arreglo(arrA);
+		System.out.println();
+		imprimir_arreglo(arrB);
+	}
+
+	public static int fin_sec_primos(){
+		return 4;
+	}
+	
+	public static void eliminar_valores(int[]arrA, int[]arrB){
+		int fin = fin_sec_primos();
+		int pos = 0;
+		while(arrB[fin] != 0){
+			if(arrB[fin] % 2 == 0 || arrB[fin] % 3 == 0){
+				fin--;
+			}else{
+				while(pos < MAX){
+					if(arrA[pos] == arrB[fin]){
+						corrimiento_izquierda(arrA,pos);
+					}else{
+						pos++;
+					}
+				}
+				fin--;
+			}
+		}
+	}
+
+	public static void corrimiento_izquierda(int [] arrA, int pos){
+		int indice = pos;
+		while(indice < MAX-1){
+			arrA[indice] = arrA[indice+1];
+			indice++;
+		}
+	}
+	
+	public static void imprimir_arreglo(int []arr) {
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+}
+

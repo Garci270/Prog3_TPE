@@ -1,0 +1,16 @@
+package PracticaParcialito;
+
+import java.util.ArrayList;
+
+public class Paciente {
+	private String nombre;
+	private int edad;
+	private ArrayList<String> sintomas;
+	private ArrayList<String> equipamentos;
+	
+	public Paciente(String nombre) {
+		this.nombre = nombre;
+		this.sintomas = new ArrayList<>();
+		this.equipamentos = new ArrayList<>();
+	}
+}

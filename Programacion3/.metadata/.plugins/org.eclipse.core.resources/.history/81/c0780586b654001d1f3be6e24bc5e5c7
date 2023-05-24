@@ -1,0 +1,62 @@
+package PracticaParcialito;
+
+import java.util.ArrayList;
+
+public class Paciente {
+	private String nombre;
+	private int edad;
+	private ArrayList<String> sintomas;
+	private ArrayList<String> equipamientos;
+	
+	public Paciente(String nombre, int edad) {
+		this.nombre = nombre;
+		this.edad = edad;
+		this.sintomas = new ArrayList<>();
+		this.equipamientos = new ArrayList<>();
+	}
+	
+	public void addSintomas(String s1) {
+		if(!this.sintomas.contains(s1)) {
+			this.sintomas.add(s1);
+		}
+	}
+	
+	public void addEquipamiento(String s1) {
+		if(!this.equipamientos.contains(s1)) {
+			this.equipamientos.add(s1);
+		}
+	}
+	
+	public boolean buscarEquipamiento(String eq) {
+		for(String e: equipamientos) {
+			if(e.equals(eq)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+	
+	public Paciente copia() {
+		Paciente copia = new Paciente(this.nombre, this.edad);
+		for() {}
+		}
+	}
+	
+	public boolean buscarSintomas(String sintomas) {
+		for(String s: this.sintomas) {
+			if(s.equals(sintomas)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+}

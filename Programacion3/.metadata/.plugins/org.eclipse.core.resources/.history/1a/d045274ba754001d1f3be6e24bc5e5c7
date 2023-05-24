@@ -1,0 +1,14 @@
+package PracticaParcialito;
+
+import java.util.ArrayList;
+
+public class Establecimiento extends ElementoHospital {
+	private ArrayList<ElementoHospital> elementos;
+	private ArrayList<Paciente> pacientes;
+	@Override
+	public int totalCamas(Filtro f1) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

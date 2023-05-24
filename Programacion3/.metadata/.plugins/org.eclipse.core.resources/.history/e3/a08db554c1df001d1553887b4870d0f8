@@ -1,0 +1,21 @@
+package Practico2_1;
+
+public class main {
+
+	public static void main(String[] args) {
+		Arbol bin = new Arbol();
+		bin.insert(8);
+		bin.insert(6);
+		bin.insert(5);
+		bin.insert(10);
+		bin.insert(9);
+		bin.insert(13);
+		bin.insert(2);
+		System.out.println(bin.toString());
+		System.out.println(bin.getRoot());
+		System.out.println(bin.isEmpty());
+		System.out.println(bin.hasElem(6));
+
+	}
+
+}

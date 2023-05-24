@@ -1,0 +1,21 @@
+package TPE1;
+
+
+public class main {
+
+	public static void main(String[] args) {
+		GrafoDirigido grafo = new GrafoDirigido();
+		grafo.addVertice(1);
+		grafo.addVertice(2);
+		grafo.addVertice(3);
+		grafo.addVertice(4);
+		grafo.addVertice(5);
+		grafo.addVertice(6);
+		grafo.addArco(1, 2);
+		grafo.addArco(1, 3);
+		grafo.addArco(2, 5);
+		grafo.addArco(6, 1);
+		grafo.printGrafo();
+		System.out.println(grafo.findArco(2, 1));
+	}
+}

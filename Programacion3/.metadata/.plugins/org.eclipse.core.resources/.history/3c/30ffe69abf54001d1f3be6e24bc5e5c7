@@ -1,0 +1,11 @@
+package PracticaParcialito;
+
+public class main {
+
+	public static void main(String[] args) {
+		Establecimiento e = new Establecimiento();
+		
+		ElementoHospital pasillo = new Establecimiento();
+	}
+
+}

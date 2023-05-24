@@ -1,0 +1,39 @@
+package Programacion1;
+
+public class Arr18{
+	public static int MAX = 10;
+public static void main(String[]args){
+		int [] arrA = new int[MAX];
+		int [] arrB = new int[MAX];
+		realizar_cambio(arrB,arrA);
+}
+
+public static int sec_menor_multiplo(){}
+
+public static void realizar_cambio(int[]arrB,int[]arrA){
+	int inicio = sec_menor_multiplo();
+	int pos = 0;
+	while(arrA[inicio] != 0){
+	if(arrA[inicio] % 5 == 0 && arrA[inicio] != 5){
+	inicio++;
+}else{
+	while(pos < MAX && arrA[inicio] <= arrB[pos]){
+	if(arrA[inicio] <= arrB[pos]){
+	corrimiento_derecha(arrA,pos);
+	arrB[pos] = arrA[inicio];
+}
+pos++;
+}
+inicio++;
+}
+}
+}
+
+	public static void corrimiento_derecha(int[]arrA,int pos){
+		int indice = MAX-1;
+		while(indice >= pos){
+			arrA[indice] = arrA[indice-1];
+			indice--;
+		}
+	}
+}

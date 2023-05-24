@@ -1,0 +1,39 @@
+package JuegoPersonajes;
+
+import java.util.ArrayList;
+
+public class Juego {
+	private String nombre;
+	private ArrayList<Personaje> personajes;
+	
+	public  Juego(String nombre) {
+		this.nombre = nombre;
+		this.personajes = new ArrayList<>();
+	}
+	
+	public void setPersonaje(Personaje personaje) {
+		if(!this.personajes.contains(personaje)) {
+			this.personajes.add(personaje);
+		}
+	}
+	
+	public String batallaPersonajes(Personaje p1,Personaje p2) {
+		String gano = "";
+		if(this.personajes.contains(p1) && this.personajes.contains(p2)) {
+			gano = this.ganador(p1, p2);
+		}
+		return gano;
+	}
+	
+	public String ganador(Personaje p1,Personaje p2) {
+		String gano = "";
+		if(p1.getFuerza() > p2.getFuerza()) {
+			gano = "Gana el "+p1.getNombre_heroe();
+		}else if(p1.getFuerza() < p2.getFuerza()) {
+			gano = "Gana el "+p2.getNombre_heroe();
+		}else if(p1.getFuerza() == p2.getFuerza()) {
+			gano = "Hay empate";
+		}
+		return gano;
+	}
+}

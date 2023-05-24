@@ -1,0 +1,7 @@
+package TPE1;
+
+public interface Grafo<T> {
+	
+	public void addVertice(int verticeId);
+	public void deleteVertice(int verticeId);
+}

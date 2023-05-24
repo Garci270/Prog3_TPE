@@ -1,0 +1,90 @@
+
+
+package Programacion1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Arreglos1 {
+	public static final int MAXVALOR = 10;
+	public static final int MINVALOR = 1;
+	public static final int MAX = 20;
+	public static void main(String[]args){
+		int arrint []= {0,4,7,5,0,0,5,8,9,6,3,1,0,4,7,7,0};
+		int arrintnew [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		imprimir_arreglo(arrint);
+		System.out.println(" ");
+		imprimir_arreglo(arrintnew);
+		generar_copia_arreglo(numero_ingresado(), arrint,arrintnew);
+		imprimir_arreglo(arrint);
+		System.out.println(" ");
+		imprimir_arreglo(arrintnew);
+	}
+	public static void imprimir_arreglo(int [] arr) {
+		for(int i = 0; i <= arr.length-1; i++) {
+			System.out.print(arr[i]);
+		}
+	}
+	
+	public static void generar_copia_arreglo(int numero, int[]arr, int[] arrnew) {
+		int posn = 0;
+		int pos = 0;
+		for(int i = pos; i <= arr.length-1; i++) {
+			if(arr[i] != 0) {
+				if(contar_secuencia(arr,i) == numero) {
+					pos = i;
+					i = fin_secuencia(i, arr);
+					posn = buscar_cero_arrnew(arrnew);
+					cargar_arreglo_nuevo(arr,arrnew,pos,posn);
+				}else {
+					i = fin_secuencia(i, arr);
+				}
+			}
+		}
+		
+	}
+	
+	public static int contar_secuencia(int[]arr,int pos) {
+		int contador = 0;
+		while(arr[pos+1] != 0 && pos < arr.length) {
+			contador++;
+			pos++;
+		}
+		return contador;
+	}
+	
+	public static int fin_secuencia(int pos,int[]arr) {
+		while(arr[pos+1] != 0 && pos < arr.length) {
+			pos++;
+		}
+		return pos;
+	}
+	
+	
+	public static int buscar_cero_arrnew(int[]arrnew){
+		int pos = 0;
+		while(arrnew[pos] !=0 && pos < arrnew.length) {
+			pos++;
+		}
+		return pos;
+	}
+	
+	public static void cargar_arreglo_nuevo(int[]arr,int[]arrnew,int pos,int posn) {
+		while(arr[pos] != 0 && pos < arr.length){
+			arrnew[posn] = arr[pos];
+			pos++;
+			posn++;
+			
+		}
+	}
+
+
+
+}
+
+
+
+	
+
+

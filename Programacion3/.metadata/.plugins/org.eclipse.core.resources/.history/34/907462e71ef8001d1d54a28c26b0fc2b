@@ -1,0 +1,78 @@
+package TPE1;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
+public class ServicioBFS {
+
+	private GrafoDirigido<Arco> grafo;
+	
+	public ServicioBFS(GrafoDirigido<Arco> grafo) {
+		this.grafo = grafo;
+	}
+	
+	
+	/*la complejidad computacional de la función bfsForest 
+	 *se puede considerar como O(V + n), donde V es el número de vértices y n es el número de arcos en el grafo.*/
+	public List<Integer> bfsForest(int s) {
+        Set<Integer> visitado = new HashSet<>();
+        List<Integer> recorrido = new ArrayList<>();
+        recorrido.add(s);
+        visitado.add(s);
+        int i = 0;
+        while (i < recorrido.size()) {
+            int actual = recorrido.get(i);
+            List<Arco> adyacentes = this.grafo.getGrafos().get(actual);
+            if (adyacentes != null) {
+                for (Arco ady : adyacentes) {
+                    if (!visitado.contains(ady.getVerticeOrigen())) {
+                        visitado.add(ady.getVerticeOrigen());
+                        recorrido.add(ady.getVerticeOrigen());
+                    }
+                }
+            }
+            i++;
+        }
+        return recorrido;
+    }
+	
+	public List<Integer> bfsForest() {
+		List<Integer> recorrido = new ArrayList<>();
+		Set<Integer>  visitado = new HashSet<>();
+        // Iterar sobre todos los nodos del grafo
+        for (int nodo = 0; nodo < grafo.getCantidadNodos(); nodo++) {
+            if (!visitado.contains(nodo)) {
+                bfs(nodo,visitado,recorrido);
+            }
+        }
+
+        return recorrido;
+    }
+
+    private void bfs(int nodoInicial, Set visitado, List recorrido) {
+        Queue<Integer> cola = new LinkedList<>();
+        cola.offer(nodoInicial);
+        visitado.add(nodoInicial);
+
+        while (!cola.isEmpty()) {
+            int nodo = cola.poll();
+            recorrido.add(nodo);
+
+            List<Arco> adyacentes = grafo.getGrafos().get(nodo);
+            if (adyacentes != null) {
+                for (Arco ady : adyacentes) {
+                    int nodoAdyacente = ady.getVerticeOrigen();
+                    if (!visitado.contains(nodoAdyacente)) {
+                        cola.offer(nodoAdyacente);
+                        visitado.add(nodoAdyacente);
+                    }
+                }
+            }
+        }
+    }
+	
+}

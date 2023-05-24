@@ -1,0 +1,21 @@
+package ContactosCelular;
+
+import java.util.ArrayList;
+
+public class Celular {
+	private String nombre;
+	private ArrayList<Contacto> contactos;
+	
+	public Celular(String nombre) {
+		this.nombre = nombre;
+		this.contactos = new ArrayList<>();
+	}
+	
+	public void listaContactos() {
+		for(int i = 0; i < this.contactos.size(); i++) {
+			System.out.println("Contacto: "+this.contactos.get(i).getApellido() + " "+this.contactos.get(i).getNombre());
+			System.out.println("Edad: "+this.contactos.get(i).getEdad());
+			System.out.println("Numero: "+this.contactos.get(i).getNumero());
+		}
+	}
+}

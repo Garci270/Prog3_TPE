@@ -1,0 +1,53 @@
+package TPE1;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ServicioCaminos {
+
+	private GrafoDirigido<Arco> grafo;
+	private int origen;
+	private int destino;
+	private int lim;
+	
+	// Servicio caminos
+	public ServicioCaminos(GrafoDirigido<Arco> grafo, int origen, int destino, int lim) {
+		this.grafo = grafo;
+		this.origen = origen;
+		this.destino = destino;
+		this.lim = lim;
+	}
+	
+	
+	public List<List<Integer>> caminos() {
+        List<List<Integer>> caminos = new ArrayList<>();
+        List<Integer> caminoActual = new ArrayList<>();
+        Set<Integer> visitado = new HashSet<>();
+        encontrarCaminosRecursivo(visitado, caminoActual, caminos);
+        return caminos;
+    }
+	
+	
+	
+	private void encontrarCaminosRecursivo(Set<Integer> visitado, List<Integer> caminoActual, List<List<Integer>> caminos) {
+        visitado.add(this.origen);
+        caminoActual.add(this.origen);
+
+        if (this.origen == this.destino && caminoActual.size() <= this.lim) {
+            caminos.add(new ArrayList<>(caminoActual));
+        } else if (caminoActual.size() < this.lim) {
+            List<Arco> adyacentes = this.grafo.getGrafos().get(this.origen);
+            if (adyacentes != null) {
+                for (Arco ady : adyacentes) {
+                    if (!visitado.contains(ady.getVerticeOrigen())) {
+                        encontrarCaminosRecursivo(visitado, caminoActual, caminos);
+                    }
+                }
+            }
+        }
+        visitado.remove(this.origen);
+        caminoActual.remove(caminoActual.size() - 1);
+    }
+}

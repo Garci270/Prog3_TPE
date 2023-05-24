@@ -1,0 +1,146 @@
+package Practico2_1;
+
+public class Arbol<T> {
+	private Node<Integer> first;
+	private int size;
+	
+	public Arbol() {
+		this.first = null;
+		this.size = 0;
+	}
+	
+	public boolean isEmpty() {
+		if(this.first == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Integer getRoot() {
+		return this.first.getInfo();
+	}
+	
+	public boolean hasElem(Integer info) {
+	        if (this.first.getInfo() == info) {
+	            return true;
+	        }
+	        Node<Integer> current_node = this.first;
+	        while (true) {
+	            if (info < current_node.getInfo()) {
+	                if (current_node.getIzq() == null) {
+	                    return false;
+	                }else if(current_node.getIzq().getInfo() == info) {
+	                	return true;
+	                }
+	                current_node = current_node.getIzq();
+	            } else if (info > current_node.getInfo()) {
+	                if (current_node.getDer() == null) {
+	                    return false;
+	                }else if(current_node.getDer().getInfo() == info) {
+	                	return true;
+	                }
+	                current_node = current_node.getDer();
+	            } else {
+	                return true;
+	            }
+	        }
+	}
+	
+	public void insert(int info) {
+        Node<Integer> new_node = new Node(info,null,null);
+        if (this.first == null) {
+        	this.first = new_node;
+            return;
+        }
+        Node<Integer> current_node = this.first;
+        while (true) {
+            if (info < current_node.getInfo()) {
+                if (current_node.getIzq() == null) {
+                    current_node.setIzq(new_node);
+                    break;
+                }
+                current_node = current_node.getIzq();
+            } else if (info > current_node.getInfo()) {
+                if (current_node.getDer() == null) {
+                    current_node.setDer(new_node);
+                    break;
+                }
+                current_node = current_node.getDer();
+            } else {
+                // The value already exists in the tree
+                break;
+            }
+        }
+    }
+	
+	
+	public void delete(int value) {
+        this.first = deleteRecursive(this.first, value);
+    }
+
+    private Node<Integer> deleteRecursive(Node<Integer> current_node, int value) {
+        if (current_node == null) {
+            return null;
+        }
+        if (value == current_node.getInfo()) {
+            if (current_node.getIzq() == null && current_node.getDer() == null) {
+                return null;
+            }
+            if (current_node.getIzq() == null) {
+                return current_node.getDer();
+            }
+            if (current_node.getDer() == null) {
+                return current_node.getIzq();
+            }
+            int smallest_value = findSmallestValue(current_node.getIzq());
+            current_node.setInfo(smallest_value);
+            current_node.setDer(deleteRecursive(current_node.getDer(), smallest_value));
+            return current_node;
+        }
+        if (value < current_node.getInfo()) {
+            current_node.setIzq(deleteRecursive(current_node.getIzq(), value));
+            return current_node;
+        }
+        current_node.setDer(deleteRecursive(current_node.getDer(), value));
+        return current_node;
+    }
+
+    private int findSmallestValue(Node<Integer> current_node) {
+        return current_node.getIzq() == null ? current_node.getInfo() : findSmallestValue(current_node.getIzq());
+    }
+    
+    public int getHeight() {
+    	return heightRecursive(first);
+    }
+    
+    private int heightRecursive(Node current_node) {
+        if (current_node == null) {
+            return 0;
+        }
+
+        int left_height = heightRecursive(current_node.left);
+        int right_height = heightRecursive(current_node.right);
+
+        return Math.max(left_height, right_height) + 1;
+    }
+	
+	
+	@Override
+	 public String toString() {
+        StringBuilder sb = new StringBuilder();
+        this.toString(this.first, sb);
+        return sb.toString();
+    }
+
+    private void toString(Node node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        toString(node.getIzq(), sb);
+        sb.append(node.getInfo() + " ");
+        toString(node.getDer(), sb);
+    }
+	
+	
+	
+}

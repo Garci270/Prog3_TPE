@@ -1,0 +1,70 @@
+package Programacion1;
+
+public class Arr21{
+	public static int MAX = 10;
+	public static void main(String[]args){
+		int [] arr = {0,7,10,0,8,7,0,4,5,0};
+		int[] par = {0,0,0,0,0,0,0,0,0,0};
+		imprimir_arreglo(arr);
+		System.out.println();
+		imprimir_arreglo(par);
+		extraer_secuencia(arr,par);
+		System.out.println();
+		imprimir_arreglo(par);
+	}
+
+	public static void extraer_secuencia(int[]arr,int[]par){
+		int pos = 0;
+		int inicio = 0;
+		int fin  = 0;
+		while(pos < MAX-1){
+			inicio = buscar_inicio(arr,pos);
+			fin = buscar_fin(arr,inicio);
+			if((fin -inicio + 1) % 2 == 0){
+				realizar_cambio(arr,inicio,fin,par);
+			}
+			pos = fin;
+			pos++; 
+		}
+	}
+
+	public static int buscar_inicio(int[]arr,int pos){
+		int inicio = pos;
+		while(arr[inicio] == 0 && inicio < MAX-1){
+			inicio++;
+		}
+		return inicio;
+	}
+
+	public static int buscar_fin(int[]arr,int inicio){
+		int fin= inicio;
+		while(arr[fin+1] != 0 && fin < MAX-1){
+			fin++;
+		}
+		return fin;
+	}
+
+	public static void realizar_cambio(int[]arr,int inicio, int fin, int [] par){
+		int pos = 1;
+		realizar_corrimiento_derecha(par,pos);
+		for(int i = inicio; i <= fin; i++){
+			realizar_corrimiento_derecha(par,pos);
+			par[pos] = arr[i];
+			pos++;
+		}
+	}
+
+	public static void realizar_corrimiento_derecha(int[]arr,int pos){
+		int indice = MAX-1;
+		while(indice > pos){
+			arr[indice] = arr[indice-1];
+			indice--;
+		}
+	}
+	
+	public static void imprimir_arreglo(int []arr) {
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+}

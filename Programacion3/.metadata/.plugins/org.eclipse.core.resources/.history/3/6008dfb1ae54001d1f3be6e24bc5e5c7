@@ -1,0 +1,26 @@
+package PracticaParcialito;
+
+import java.util.ArrayList;
+
+public class Establecimiento extends ElementoHospital {
+	private ArrayList<ElementoHospital> elementos;
+	private ArrayList<Paciente> pacientes;
+	
+	public Establecimiento() {
+		this.elementos = new ArrayList<>();
+		this.pacientes = new ArrayList<>();
+	}
+	
+	
+	
+	
+	@Override
+	public int totalCamas(Filtro f1) {
+		int total = 0;
+		for(ElementoHospital e: elementos) {
+			total += e.totalCamas(f1);
+		}
+		return total;
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Prefi1.VideoParticulas&apos; to &apos;VideoParticular&apos;&#x0D;&#x0A;- Original project: &apos;PracticaPrefi&apos;&#x0D;&#x0A;- Original element: &apos;Prefi1.VideoParticulas&apos;&#x0D;&#x0A;- Renamed element: &apos;Prefi1.VideoParticular&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;VideoParticulas&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;Prefi1{VideoParticulas.java[VideoParticulas" matchStrategy="1" name="VideoParticular" qualified="false" references="true" similarDeclarations="false" stamp="1668818590903" textual="false" version="1.0"/>
+</session>

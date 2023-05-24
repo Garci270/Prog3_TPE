@@ -1,0 +1,179 @@
+package Programacion1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Matriz1{
+	public static final int MAXFILA = 4;
+	public static final int MAXCOL = 10;
+	public static final int MAX = 15;
+	public static final int MAXVALOR = 8;
+	public static final int MINVALOR = 1;
+	public static final double probabilidad_numero = 0.1;
+	public static void main(String[]args){
+		char[][]matchar;
+		matchar = new char[MAXFILA][MAXCOL];
+		cargar_matriz_aleatoria_secuencias_char(matchar);
+		imprimir_matriz_char(matchar);
+		buscar_por_fila(matchar);
+		imprimir_matriz_char(matchar);
+	}
+	
+	public static void cargar_matriz_aleatoria_secuencias_char(char [][] mat) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			cargar_matriz_secuencia_aleatorio_char(mat[fila]);
+		}
+		System.out.println("");
+	}
+	
+	public static void cargar_matriz_secuencia_aleatorio_char(char []arr) {
+		Random r = new Random();
+		arr[0]= ' ';
+		arr[MAXCOL-1] = ' ';
+		for(int pos = 1; pos < MAXCOL-1; pos++) {
+			if(r.nextDouble()>probabilidad_numero) {
+				arr[pos]= (char) (r.nextInt(26)+'a');
+			}else {
+				arr[pos]= 0;
+			}
+		}
+	}
+	
+	
+	public static void imprimir_matriz_char(char[][] mat) {
+		System.out.println("");
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			imprimir_arreglo_secuencia_char(mat[fila]);
+			System.out.println("");
+		}
+	}
+	
+	public static void imprimir_arreglo_secuencia_char(char[]arr) {
+		System.out.print("|");
+		for(int pos = 0; pos < MAXCOL; pos++) {
+			System.out.print(arr[pos]+"|");
+		}
+	}
+	public static void cargar_matriz_aleatoria_secuencias_int(int [][] mat) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			cargar_matriz_secuencia_aleatorio(mat[fila]);
+		}
+		System.out.println("");
+	}
+	
+	public static void cargar_matriz_secuencia_aleatorio(int []arr) {
+		Random r = new Random();
+		arr[0]= 0;
+		arr[MAX-1] = 0;
+		for(int pos = 1; pos < MAX-1; pos++) {
+			if(r.nextDouble()>probabilidad_numero) {
+				int temp = (r.nextInt(MAXVALOR+MINVALOR-1)+MINVALOR);
+				arr[pos]=temp;
+			}else {
+				arr[pos]= 0;
+			}
+		}
+	}
+	
+	public static void imprimir_arreglo_secuencia_int(int[]arr) {
+		System.out.print("|");
+		for(int pos = 0; pos < MAX; pos++) {
+			System.out.print(arr[pos]+"|");
+		}
+	}
+	
+	
+	public static void imprimir_matriz_int(int[][] mat) {
+		System.out.println("");
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			imprimir_arreglo_secuencia_int(mat[fila]);
+			System.out.println("");
+		}
+	}
+	
+	public static void imprimir_arreglo_int(int[]mat) {
+		System.out.println("|");
+		for(int fila = 0; fila < MAXCOL; fila++) {
+			System.out.print(mat[fila]+"|");
+		}
+	}
+
+	public static int buscar_fin_sec(char[]arr, int inicio){
+		while(inicio < MAXCOL-1 && arr[inicio+1] != ' '){
+			inicio++;
+	}
+		return inicio;
+	}
+
+	public static void buscar_por_fila(char[][]arr){
+		for(int i = 0; i < MAXFILA; i++){
+			buscar_sec(arr[i]);
+		}
+	}
+	
+	public static void buscar_sec(char[]arr) {
+		boolean sec_par = false;
+		int inicio = 0;
+		int fin = 0;
+		for(int i = 0; i <MAXCOL; i++) {
+			if(arr[i] != ' ') {
+				inicio = i;
+				fin = buscar_fin_sec(arr,inicio);
+				sec_par = vocales_todas(arr,inicio,fin);
+			}
+			if(sec_par) {
+				eliminar_sec(arr,inicio,fin);
+			}
+			i = fin+1;
+		}
+	}
+	
+	public static boolean vocales_todas(char[]arr,int inicio, int fin) {
+		boolean is_a = false;
+		boolean is_e = false;
+		boolean is_i = false;
+		boolean is_o = false;
+		boolean is_u = false;
+		boolean vocales = false;
+		for(int i = inicio; i <= fin; i++) {
+			if(arr[i] == 'a') {
+				is_a = true;
+			}
+			if(arr[i] == 'e') {
+				is_e = true;
+			}
+			if(arr[i] == 'i') {
+				is_i = true;
+			}
+			if(arr[i] == 'o') {
+				is_o = true;
+			}
+			if(arr[i] == 'u') {
+				is_u = true;
+			}
+		}
+		if((is_a && is_e)||( is_i && is_o && is_u)) {
+			vocales = true;
+		}
+		return vocales;
+	}
+
+	public static void eliminar_sec(char[]arr,int in, int fn) {
+		while(fn >= in) {
+			arr[fn] = arr[fn+1];
+			fn--;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

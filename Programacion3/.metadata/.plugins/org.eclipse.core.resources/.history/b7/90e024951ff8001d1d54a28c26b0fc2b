@@ -1,0 +1,38 @@
+package TPE1;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ServicioDFS<T> {
+
+	private GrafoDirigido<T> grafo;
+
+	public ServicioDFS(GrafoDirigido<T> grafo) {
+		this.grafo = grafo;
+	}
+	
+	/*Enla complejidad computacional de la función 
+	 * dfsForest está determinada principalmente por el número de arcos en el grafo y se puede considerar como O(n), donde n es el número de arcos.*/
+	public List<Integer> dfsForest(int s) {
+        Set<Integer> visitado = new HashSet<>();
+        List<Integer> recorrido = new ArrayList<>();
+        DFSRecursivo(s, visitado, recorrido);
+        return recorrido;
+    }
+
+    private void DFSRecursivo(int v, Set<Integer> visitado, List<Integer> recorrido) {
+        visitado.add(v);
+        recorrido.add(v);
+        List<Arco> adyacentes = this.grafo.getGrafos().get(v);
+        if (adyacentes != null) {
+            for (Arco ady : adyacentes) {
+                if (!visitado.contains(ady.getVerticeOrigen())) {
+                    DFSRecursivo(ady.getVerticeOrigen(), visitado, recorrido);
+                }
+            }
+        }
+    }
+
+}

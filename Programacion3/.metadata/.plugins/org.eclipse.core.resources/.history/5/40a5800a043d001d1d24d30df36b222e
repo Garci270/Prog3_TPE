@@ -1,0 +1,16 @@
+package JuegoPersonajes;
+
+public class main {
+
+	public static void main(String[] args) {
+		Juego juego = new Juego("Mortal Kombat");
+		Personaje personaje1 = new Personaje("Zero","Sub Zero",100,200,150,85,185,35,"Heroe");
+		Personaje personaje2 = new Personaje("Kashi","Kashi",200,400,250,85,185,35,"Villano");
+		Personaje personaje3 = new Personaje("Clark Kent","Superman",500,500,500,100,190,35,"Heroe");
+		juego.setPersonaje(personaje1);
+		juego.setPersonaje(personaje2);
+		juego.setPersonaje(personaje3);
+		System.out.println(juego.batallaPersonajes(personaje2, personaje3));
+	}
+
+}

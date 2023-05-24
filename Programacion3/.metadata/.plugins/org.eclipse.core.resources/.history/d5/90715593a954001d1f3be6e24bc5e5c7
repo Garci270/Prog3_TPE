@@ -1,0 +1,15 @@
+package PracticaParcialito;
+
+public class FiltroEdadMenor extends Filtro {
+	private int edad;
+	
+	public FiltroEdadMenor(int edad) {
+		this.edad = edad;
+	}
+	@Override
+	public boolean cumple(Paciente p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

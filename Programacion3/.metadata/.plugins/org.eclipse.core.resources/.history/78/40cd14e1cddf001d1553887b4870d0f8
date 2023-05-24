@@ -1,0 +1,260 @@
+package Practico2_1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Arbol<T> {
+	private Node<Integer> first;
+	private int size;
+	
+	public Arbol() {
+		this.first = null;
+		this.size = 0;
+	}
+	
+	public boolean isEmpty() {
+		if(this.first == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Integer getRoot() {
+		return this.first.getInfo();
+	}
+	
+	public boolean hasElem(Integer info) {
+	        if (this.first.getInfo() == info) {
+	            return true;
+	        }
+	        Node<Integer> current_node = this.first;
+	        while (true) {
+	            if (info < current_node.getInfo()) {
+	                if (current_node.getIzq() == null) {
+	                    return false;
+	                }else if(current_node.getIzq().getInfo() == info) {
+	                	return true;
+	                }
+	                current_node = current_node.getIzq();
+	            } else if (info > current_node.getInfo()) {
+	                if (current_node.getDer() == null) {
+	                    return false;
+	                }else if(current_node.getDer().getInfo() == info) {
+	                	return true;
+	                }
+	                current_node = current_node.getDer();
+	            } else {
+	                return true;
+	            }
+	        }
+	}
+	
+	public void insert(int info) {
+        Node<Integer> new_node = new Node(info,null,null);
+        if (this.first == null) {
+        	this.first = new_node;
+            return;
+        }
+        Node<Integer> current_node = this.first;
+        while (true) {
+            if (info < current_node.getInfo()) {
+                if (current_node.getIzq() == null) {
+                    current_node.setIzq(new_node);
+                    break;
+                }
+                current_node = current_node.getIzq();
+            } else if (info > current_node.getInfo()) {
+                if (current_node.getDer() == null) {
+                    current_node.setDer(new_node);
+                    break;
+                }
+                current_node = current_node.getDer();
+            } else {
+                // The value already exists in the tree
+                break;
+            }
+        }
+    }
+	
+	
+	public void delete(int value) {
+        this.first = deleteRecursive(this.first, value);
+    }
+
+    private Node<Integer> deleteRecursive(Node<Integer> current_node, int value) {
+        if (current_node == null) {
+            return null;
+        }
+        if (value == current_node.getInfo()) {
+            if (current_node.getIzq() == null && current_node.getDer() == null) {
+                return null;
+            }
+            if (current_node.getIzq() == null) {
+                return current_node.getDer();
+            }
+            if (current_node.getDer() == null) {
+                return current_node.getIzq();
+            }
+            int smallest_value = findSmallestValue(current_node.getIzq());
+            current_node.setInfo(smallest_value);
+            current_node.setDer(deleteRecursive(current_node.getDer(), smallest_value));
+            return current_node;
+        }
+        if (value < current_node.getInfo()) {
+            current_node.setIzq(deleteRecursive(current_node.getIzq(), value));
+            return current_node;
+        }
+        current_node.setDer(deleteRecursive(current_node.getDer(), value));
+        return current_node;
+    }
+
+    private int findSmallestValue(Node<Integer> current_node) {
+        return current_node.getIzq() == null ? current_node.getInfo() : findSmallestValue(current_node.getIzq());
+    }
+    
+    public int getHeight() {
+    	return heightRecursive(first);
+    }
+    
+    private int heightRecursive(Node current_node) {
+        if (current_node == null) {
+            return 0;
+        }
+        int left_height = heightRecursive(current_node.getIzq());
+        int right_height = heightRecursive(current_node.getDer());
+        return Math.max(left_height, right_height) + 1;
+    }
+    
+    public List<Integer> getLongestBranch() {
+        List<Integer> result = new ArrayList<>();
+        longestBranchRecursive(this.first, result);
+        return result;
+    }
+
+    private int longestBranchRecursive(Node<Integer> current_node, List<Integer> result) {
+        if (current_node == null) {
+            return 0;
+        }
+        int left_height = longestBranchRecursive(current_node.getIzq(), result);
+        int right_height = longestBranchRecursive(current_node.getDer(), result);
+
+        if (left_height + right_height + 1 > result.size()) {
+            result.clear();
+            for (int i = 0; i < left_height; i++) {
+                result.add(current_node.getIzq().getInfo());
+            }
+            result.add(current_node.getInfo());
+            for (int i = 0; i < right_height; i++) {
+                result.add(current_node.getDer().getInfo());
+            }
+        }
+        return Math.max(left_height, right_height) + 1;
+    }
+    
+    public List<Integer> getFrontera() {
+        List<Integer> leafNodes = new ArrayList<>();
+        getLeafNodesRecursive(this.first, leafNodes);
+        return leafNodes;
+    }
+
+    public void getLeafNodesRecursive(Node<Integer> current_node, List<Integer> leafNodes) {
+        if (current_node == null) {
+            return;
+        }
+
+        if (current_node.getIzq() == null && current_node.getDer() == null) {
+            leafNodes.add(current_node.getInfo());
+        } else {
+            getLeafNodesRecursive(current_node.getIzq(), leafNodes);
+            getLeafNodesRecursive(current_node.getDer(), leafNodes);
+        }
+    }
+    
+    public Integer getMaxElem() {
+    	Node<Integer> current_node = this.first;
+    	return maxElemRecursive(current_node).getInfo();
+    }
+    
+    public Node<Integer> maxElemRecursive(Node<Integer> current_node){
+    	if(current_node.getDer() != null) {
+    		return maxElemRecursive(current_node.getDer());
+    	}
+    	return current_node;
+    }
+	
+    
+    public List<Integer> getElemAtLevel(int level){
+    	List<Integer> elem = new ArrayList<>();
+    	elemLevelRecursive(this.first, elem, level);
+    	return elem;
+    }
+    
+    public void elemLevelRecursive(Node<Integer> current_node, List<Integer> elem,int level) {
+    	if(level == 0) {
+    		elem.add(current_node.getInfo());
+    	}else {
+    		if(current_node.getDer() != null) {
+    			elemLevelRecursive(current_node.getDer(), elem, level-1);    			
+    		}
+    		if(current_node.getIzq() != null) {    			
+    			elemLevelRecursive(current_node.getIzq(), elem, level-1);
+    		}
+    	}
+    	
+    }
+    
+    public int getSumElem() {
+    	return sumElemRecursive(first,0);
+    }
+    
+    public int sumElemRecursive(Node<Integer> current_node, int suma) {
+    	if(current_node != null) {
+    		suma += current_node.getInfo();    		
+	    	if(current_node.getDer() != null) {
+	    		suma = sumElemRecursive(current_node.getDer(),suma);    			
+			}
+			if(current_node.getIzq() != null) {    			
+				suma = sumElemRecursive(current_node.getIzq(),suma);
+			}
+    	}
+    	return suma;
+    }
+    
+    public List<Integer> getValuesOver(int value){
+    	List<Integer> values = new ArrayList<>();
+    	valuesOverRecursive(first, values, value);
+    	return values;
+    }
+    
+    public void valuesOverRecursive(Node<Integer> current_node,List<Integer> values,int value) {
+    	if(current_node.getDer() != null) {
+    		valuesOverRecursive(current_node.getDer(),values,value);    			
+		}else if(current_node.getInfo() > value && current_node.getDer() == null) {
+			values.add(current_node.getInfo());
+		}
+		if(current_node.getIzq() != null) {    			
+			valuesOverRecursive(current_node.getIzq(),values,value);
+		}else if(current_node.getInfo() > value && current_node.getIzq() == null) {
+			values.add(current_node.getInfo());
+		}
+    }
+	
+	@Override
+	 public String toString() {
+        StringBuilder sb = new StringBuilder();
+        this.toString(this.first, sb);
+        return sb.toString();
+    }
+
+    private void toString(Node node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        toString(node.getIzq(), sb);
+        sb.append(node.getInfo() + " ");
+        toString(node.getDer(), sb);
+    }
+	
+	
+	
+}

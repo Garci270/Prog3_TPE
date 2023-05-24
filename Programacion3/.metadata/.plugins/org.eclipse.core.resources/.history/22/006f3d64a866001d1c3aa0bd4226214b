@@ -1,0 +1,40 @@
+package TPE1;
+
+import java.util.Comparator;
+
+public class mainNumeros {
+
+	public static void main(String[] args) {
+		Comparator compNumero = new ComparableNumero();
+		Lista listaNumeros = new Lista(compNumero);
+		//4a
+		listaNumeros.insertar(10);
+		listaNumeros.insertar(21);
+		listaNumeros.insertar(1);
+		listaNumeros.insertar(5);
+		listaNumeros.insertar(11);
+		
+		
+		//4b
+		Iterador i = new Iterador(listaNumeros.getCabeza());
+		for(Integer i = listaNumeros.obtener(0):) {
+			
+		}
+		for(int i = 0; i < listaNumeros.contar(); i++) {
+			System.out.println(listaNumeros.obtener(i));
+		}
+		
+		
+		//4c
+		listaNumeros.eliminarObjeto(0);
+		listaNumeros.eliminarOcurrencia(5);
+		listaNumeros.eliminarOcurrencia(11);
+		
+		System.out.println();
+		for(int i = 0; i < listaNumeros.contar(); i++) {
+			System.out.println(listaNumeros.obtener(i));
+		}
+
+	}
+
+}

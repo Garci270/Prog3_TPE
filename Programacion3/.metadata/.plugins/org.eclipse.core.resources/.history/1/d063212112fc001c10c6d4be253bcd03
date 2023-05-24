@@ -1,0 +1,72 @@
+package prog1;
+import java.util.Random;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class matriz {
+	public static final int MAXFILA = 5;
+	public static final int MAXCOLUMNA = 10;
+	public static final int MAXVALOR = 10;
+	public static final int MINVALOR = 0;
+	public static void main(String[]args){
+		int [][] matint;
+		matint = new int[MAXFILA][MAXCOLUMNA];
+		cargar_matriz_aleatoria(matint);
+		imprimir_matriz_aleatoria(matint);
+		corrimiento_a_izq(matint, solicitar_pos_fila(),solicitar_pos_columna());
+
+	}
+
+	public static void cargar_matriz_aleatoria(int[][] matint){
+		Random r = new Random();
+		int temp;
+		for (int fila = 0; fila< MAXFILA; fila++) {
+			for (int columna = 0; columna < MAXCOLUMNA; columna++){
+				temp = r.nextInt(MAXVALOR-MINVALOR+1) + MINVALOR;
+				matint[fila][columna]= temp;				
+			}
+		}
+	}
+	
+	public static void imprimir_matriz_aleatoria(int[][] matint) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			for(int col = 0; col < MAXCOLUMNA; col++) {
+				System.out.print("["+matint[fila][col]+"]");
+			}
+			System.out.println(" ");
+		}
+	}
+	
+	public static int solicitar_pos_fila(){
+		int numero = 0;
+		System.out.println("Ingrese numero fila");
+		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+		try{
+			numero = Integer.valueOf(entrada.readLine());
+		}catch(Exception exc){
+			System.out.println("Error");
+		}
+		return numero;
+
+		} 
+
+	public static int solicitar_pos_columna(){
+		int numero = 0;
+		System.out.println("Ingrese numero columna");
+		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+		try{
+			numero = Integer.valueOf(entrada.readLine());
+		}catch(Exception exc){
+			System.out.println("Error");
+		}
+		return numero;
+	} 
+
+	public static void corrimiento_a_izq(int[][] matint, int fila, int col){
+			for(int column = col; column > 0; column--){
+				matint[fila][column] = matint[fila][column-1];
+			}
+	}
+
+
+}

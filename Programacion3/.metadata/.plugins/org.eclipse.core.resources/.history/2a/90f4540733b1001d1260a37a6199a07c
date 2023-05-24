@@ -1,0 +1,74 @@
+package Programacion1;
+
+public class Arr19{
+	public static int MAX = 10;
+	public static void main(String[]args){
+		int[][] mat = new int[MAX][MAX];
+		int[] arr = new int[MAX];
+		guardar_sec(mat,arr);
+	}
+
+	public static void guardar_sec(int[][]mat,int[]arr){
+		for(int i = 0; i < MAX; i++){
+			if(buscar_sec(mat[i])){
+				corrimiento_derecha(arr);
+				arr[0] = i;
+			}
+		}
+	}
+
+	public static boolean buscar_sec(int[]arr){
+		int inicio = 0;
+		int fin = 0;
+		int contador =0;
+		while(inicio < MAX){
+			if(arr[inicio] != 0){
+				fin = buscar_fin(arr,inicio);
+				if(orden_no_asc(arr,inicio,fin)){
+					contador++;
+				}
+				inicio = fin;
+			}
+			inicio++;
+		}
+		if(contador <= 5){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+
+	public static void corrimiento_derecha(int[]arr){
+		int pos = MAX-1;
+		while(pos > 0){
+			arr[pos] = arr[pos-1];
+			pos--;
+		}
+	}
+	
+
+	public static int buscar_fin(int[]arr,int inicio){
+		int fin = inicio;
+		while(arr[fin+1] != 0 && fin < MAX){
+			fin++;
+		}
+		return fin;
+	}
+	
+	public static boolean orden_no_asc(int[]arr,int inicio,int fin){
+		boolean orden = true;
+		int guardo = arr[inicio];
+		while(inicio <= fin && orden){
+			if(arr[inicio] < guardo){
+				orden = false;
+		}
+			guardo = arr[inicio];
+			inicio++;
+		}
+		return orden;
+	}
+
+
+}
+

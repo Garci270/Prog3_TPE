@@ -1,0 +1,72 @@
+package JuegoPersonajes;
+
+public class Personaje {
+	private String nombre;
+	private String nombre_heroe;
+	private int vision_nocturna;
+	private int velocidad;
+	private int fuerza;
+	private int peso;
+	private int altura;
+	private int edad;
+	private boolean heroe;
+	private boolean villano;
+
+	public Personaje(String nombre, String nombre_heroe, int vis, int vel, int fuer, int peso,int alt,int edad,String hxv) {
+		if(hxv == "Heroe") {
+			this.heroe = true;
+		}else if(hxv == "Villano") {
+			this.villano = true;
+		}
+		this.nombre = nombre;
+		this.nombre_heroe = nombre_heroe;
+		this.vision_nocturna = vis;
+		this.velocidad = vel;
+		this.fuerza = fuer;
+		this.peso = peso;
+		this.altura = alt;
+		this.edad = edad;
+	}
+	
+	@Override
+    public boolean equals(Object o) {
+		Personaje personaje = (Personaje) o;
+        if(personaje.nombre == this.nombre && personaje.nombre_heroe == this.nombre_heroe) {
+        	return true;
+        }else {        	
+        	return false;
+        }
+    }
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getNombre_heroe() {
+		return nombre_heroe;
+	}
+
+	public int getVision_nocturna() {
+		return vision_nocturna;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public int getFuerza() {
+		return fuerza;
+	}
+
+	public int getPeso() {
+		return peso;
+	}
+
+	public int getAltura() {
+		return altura;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+}

@@ -1,0 +1,174 @@
+package TPE1;
+
+import java.util.Comparator;
+
+public class Lista<T> {
+	private Nodo<T> cabeza;
+	private Comparator<T> c1;
+	private int longitud = 0;
+	private String orden;
+	
+	public Lista(Comparator c1) {
+		this.c1 = c1;
+		this.cabeza = new Nodo(null);
+		this.orden = "asc";
+	}
+	
+	public Nodo<T> getCabeza(){
+		return this.cabeza;
+	}
+	
+	public int contar() {
+		return longitud;
+	}
+	
+	public boolean estaVacia() {
+		return cabeza == null;
+	}
+	
+	public void ordenarAsc() {
+		if(this.orden != "asc") {
+			this.orden = "asc";
+			this.ordenar();			
+		}
+	}
+	
+	public void ordenarDes() {
+		if(this.orden != "des") {
+			this.orden = "des";
+			this.ordenar();			
+		}
+	}
+	
+	public void ordenar() {
+		Iterador<T> it = new Iterador(this.cabeza);
+		for(int i = 0; i < this.longitud; i++) {
+			Iterador<T> jt = new Iterador(it.getCursor());
+			for(int j = i; j < this.longitud; j++) {
+				if(this.orden.equals("asc")) {					
+					if(this.c1.compare(it.getCursor().getObjeto(), jt.getCursor().getObjeto()) > 0) {
+						T guardo = jt.getCursor().getObjeto();
+						jt.getCursor().setObjeto(it.getCursor().getObjeto());
+						it.getCursor().setObjeto(guardo);
+					}
+				}else if(this.orden.equals("des")) {
+					if(this.c1.compare(it.getCursor().getObjeto(), jt.getCursor().getObjeto()) < 0) {
+						T guardo = jt.getCursor().getObjeto();
+						jt.getCursor().setObjeto(it.getCursor().getObjeto());
+						it.getCursor().setObjeto(guardo);
+					}
+				}
+				jt.next();
+			}
+			it.next();
+		}
+	}
+	
+	public void setComparador(Comparator c1) {
+		this.c1 = c1;
+		this.ordenar();
+	}
+	
+	public void insertar(T o) {
+		if(this.cabeza.getObjeto() != null) {
+			Iterador<T> it = new Iterador(this.cabeza);
+			T i;
+			while(it.hasNext() && c1.compare(it.getCursor().getObjeto(),o) < 0) {
+				i = it.next();
+			}
+			Nodo in = new Nodo(o);
+			it.getCursor().setSiguiente(in);
+			longitud++;
+		}else {
+			this.cabeza.setObjeto(o);
+			longitud++;
+		}
+		this.ordenar();
+	}
+	
+	
+	public void mostrarLista() {
+		Iterador<T> it = new Iterador(this.cabeza);
+		T i;
+		while(it.hasNext()) {
+			i = it.next();
+			if(i != null) {				
+				System.out.println(i);
+			}
+		}
+		System.out.println(it.next());
+	}
+	
+	public T obtener(int pos) {
+		if(pos < longitud) {
+			int contador = 0;
+			Iterador<T> it = new Iterador(this.cabeza);
+			while(it.hasNext() && contador < pos) {
+				T i = it.next();
+				contador++;
+			}
+			return it.next();
+		}
+		return null;
+	}
+	
+	public void eliminarObjeto(int pos) {
+		if(pos < longitud) {	
+			if(pos > 0) {	
+				int contador = 0;
+				Iterador<T> it = new Iterador(this.cabeza);
+				T i;
+				while(it.hasNext() && contador < pos-1) {
+					i = it.next();
+					contador++;
+				}
+				Nodo temp = it.getCursor();
+				Nodo siguiente = temp.getSiguiente().getSiguiente();
+				temp.setSiguiente(siguiente);
+				longitud--;
+			}else{
+				cabeza = cabeza.getSiguiente();
+				longitud--;
+			}
+		}
+	}
+	
+	public void eliminarOcurrencia(T o) {
+		int contador = 0;
+		Iterador<T> it = new Iterador(this.cabeza);
+		T i;
+		while(contador < longitud) {
+			i = it.next();
+			if(i.equals(o)) {
+				this.eliminarObjeto(contador);
+				contador--;
+			}
+			contador++;
+		}
+	}
+	
+	public int posOcurrencia(T o) {
+		int contador = 0;
+		Iterador<T> it = new Iterador(this.cabeza);
+		T i;
+		while(contador < longitud) {
+			i = it.next();
+			if(i.equals(o)) {
+				return contador;
+			}
+			contador++;
+		}
+		return -1;
+	}
+	
+	public boolean contiene(T o) {
+		if(this.posOcurrencia(o) != -1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+
+}

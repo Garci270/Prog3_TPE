@@ -1,0 +1,14 @@
+package prog1;
+
+public class Ejercicio_2 {
+
+	public static void main(String[] args) {
+		int i, j;
+		j= 15;
+		i= j;
+		System.out.println("i= "+ i);
+		System.out.println("j= "+ j);
+		
+	}
+
+}

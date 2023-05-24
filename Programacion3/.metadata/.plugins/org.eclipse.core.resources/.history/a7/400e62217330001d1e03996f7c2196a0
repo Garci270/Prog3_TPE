@@ -1,0 +1,197 @@
+package Programacion1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Matriz1{
+	public static final int MAXFILA = 4;
+	public static final int MAXCOL = 7;
+	public static final int MAX = 15;
+	public static final int MAXVALOR = 8;
+	public static final int MINVALOR = 1;
+	public static final double probabilidad_numero = 0.1;
+	public static void main(String[]args){
+		char arr_a[]= {' ','a',' ','c','d','e',' '};
+		char arr_b[]= {' ','a','b',' ',' ',' ',' '};
+		imprimir_arreglo_secuencia_char(arr_b);
+		System.out.println(" ");
+		imprimir_arreglo_secuencia_char(arr_a);
+		programa(arr_a,arr_b);
+		imprimir_arreglo_secuencia_char(arr_b);
+		System.out.println(" ");
+		imprimir_arreglo_secuencia_char(arr_a);
+		
+	}
+	
+	public static void cargar_matriz_aleatoria_secuencias_char(char [][] mat) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			cargar_matriz_secuencia_aleatorio_char(mat[fila]);
+		}
+		System.out.println("");
+	}
+	
+	public static void cargar_matriz_secuencia_aleatorio_char(char []arr) {
+		Random r = new Random();
+		arr[0]= ' ';
+		arr[MAXCOL-1] = ' ';
+		for(int pos = 1; pos < MAXCOL-1; pos++) {
+			if(r.nextDouble()>probabilidad_numero) {
+				arr[pos]= (char) (r.nextInt(26)+'a');
+			}else {
+				arr[pos]= 0;
+			}
+		}
+	}
+	
+	
+	public static void imprimir_matriz_char(char[][] mat) {
+		System.out.println("");
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			imprimir_arreglo_secuencia_char(mat[fila]);
+			System.out.println("");
+		}
+	}
+	
+	public static void imprimir_arreglo_secuencia_char(char[]arr) {
+		System.out.print("|");
+		for(int pos = 0; pos < MAXCOL; pos++) {
+			System.out.print(arr[pos]+"|");
+		}
+	}
+	public static void cargar_matriz_aleatoria_secuencias_int(int [][] mat) {
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			cargar_matriz_secuencia_aleatorio(mat[fila]);
+		}
+		System.out.println("");
+	}
+	
+	public static void cargar_matriz_secuencia_aleatorio(int []arr) {
+		Random r = new Random();
+		arr[0]= 0;
+		arr[MAX-1] = 0;
+		for(int pos = 1; pos < MAX-1; pos++) {
+			if(r.nextDouble()>probabilidad_numero) {
+				int temp = (r.nextInt(MAXVALOR+MINVALOR-1)+MINVALOR);
+				arr[pos]=temp;
+			}else {
+				arr[pos]= 0;
+			}
+		}
+	}
+	
+	public static void imprimir_arreglo_secuencia_int(int[]arr) {
+		System.out.print("|");
+		for(int pos = 0; pos < MAX; pos++) {
+			System.out.print(arr[pos]+"|");
+		}
+	}
+	
+	
+	public static void imprimir_matriz_int(int[][] mat) {
+		System.out.println("");
+		for(int fila = 0; fila < MAXFILA; fila++) {
+			imprimir_arreglo_secuencia_int(mat[fila]);
+			System.out.println("");
+		}
+	}
+	
+	public static void imprimir_arreglo_int(int[]mat) {
+		System.out.println("|");
+		for(int fila = 0; fila < MAXCOL; fila++) {
+			System.out.print(mat[fila]+"|");
+		}
+	}
+
+	public static int buscar_fin_sec(char[]arr, int inicio){
+		while(arr[inicio+1] != ' '){
+			inicio++;
+	}
+		return inicio;
+	}
+
+	public static int obtener_tamanio_sec(int inicio, int fin){
+		int tamanio = 0;
+		for(int i = inicio; i<=fin;i++) {
+			tamanio++;
+		}
+		return inicio;
+	}
+	
+	public static int inicio_sec(int fin, char[]arr) {
+		while(arr[fin-1] != ' ') {
+			fin--;
+		}
+		return fin;
+	}
+	
+	public static int buscar_fin_mayor(char[]arr) {
+		int fin = 0;
+		int fin_a = 0;
+		int tamanio_1 = 0;
+		int tamanio_2 = 0;
+		for(int i = 0; i < MAXCOL; i++) {
+			if(arr[i] != ' ') {
+				fin = buscar_fin_sec(arr, i);
+				tamanio_1 = obtener_tamanio_sec(i, fin);
+				if(tamanio_2 < tamanio_1) {
+					tamanio_2 = tamanio_1;
+					fin_a = fin;
+				}
+				i = fin+1;
+			}
+		}
+		return fin_a;
+	}
+	
+
+	public static void programa(char[]arr_a, char[]arr_b) {
+		int fin_a = buscar_fin_mayor(arr_a);
+		int fin_b = buscar_fin_mayor(arr_b);
+		int inicio_a = inicio_sec(fin_a, arr_a);
+		int inicio_b = inicio_sec(fin_b, arr_b);
+		int tamanio_a = obtener_tamanio_sec(inicio_a, fin_a);
+		int tamanio_b = obtener_tamanio_sec(inicio_b, fin_b);
+		if(tamanio_a > tamanio_b) {
+			realizar_intercambio(arr_a,arr_b,inicio_a,fin_a,inicio_b,fin_b);
+		}else {
+			realizar_intercambio(arr_b,arr_a,inicio_b,fin_b,inicio_a,fin_a);
+		}
+	}
+	
+	public static void realizar_intercambio(char[]arr_a,char[]arr_b, int inicio_a,int fin_a,int inicio_b,int fin_b) {
+		char guardo = ' ';
+		for(int i = inicio_a; i <= fin_a;i++) {
+			guardo = arr_a[i];
+			if(arr_b[inicio_b] == ' ') {
+				realizar_corrimiento(inicio_b,arr_b);
+				arr_b[inicio_b] = guardo;
+				inicio_b++;
+			}else {
+				arr_a[i] = arr_b[inicio_b];
+				arr_b[inicio_b] = guardo;
+				inicio_b++;
+			}
+		}
+		
+	}
+	
+	public static void realizar_corrimiento(int inicio,char[]arr) {
+		int pos = MAXCOL-1;
+		while(pos > inicio) {
+			arr[pos] = arr[pos-1];
+			pos--;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

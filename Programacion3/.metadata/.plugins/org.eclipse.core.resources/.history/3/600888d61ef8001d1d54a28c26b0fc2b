@@ -1,0 +1,41 @@
+package TPE1;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ServicioBFS {
+
+	private GrafoDirigido<Arco> grafo;
+	
+	public ServicioBFS(GrafoDirigido<Arco> grafo) {
+		this.grafo = grafo;
+	}
+	
+	
+	/*la complejidad computacional de la función bfsForest 
+	 *se puede considerar como O(V + n), donde V es el número de vértices y n es el número de arcos en el grafo.*/
+	public List<Integer> bfsForest() {
+        Set<Integer> visitado = new HashSet<>();
+        List<Integer> recorrido = new ArrayList<>();
+        recorrido.add(s);
+        visitado.add(s);
+        int i = 0;
+        while (i < recorrido.size()) {
+            int actual = recorrido.get(i);
+            List<Arco> adyacentes = this.grafo.getGrafos().get(actual);
+            if (adyacentes != null) {
+                for (Arco ady : adyacentes) {
+                    if (!visitado.contains(ady.getVerticeOrigen())) {
+                        visitado.add(ady.getVerticeOrigen());
+                        recorrido.add(ady.getVerticeOrigen());
+                    }
+                }
+            }
+            i++;
+        }
+        return recorrido;
+    }
+	
+}

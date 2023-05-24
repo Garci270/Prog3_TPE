@@ -1,0 +1,6 @@
+package PracticaParcialito;
+
+public abstract class ElementoHospital {
+	public abstract int totalCamas(Filtro f1);
+	public abstract void copia();
+}

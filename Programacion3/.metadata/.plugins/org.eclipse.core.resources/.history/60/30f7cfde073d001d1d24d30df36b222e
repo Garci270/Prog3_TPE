@@ -1,0 +1,49 @@
+package ContactosCelular;
+
+import java.time.LocalDate;
+
+public class Contacto {
+	private String nombre;
+	private String apellido;
+	private LocalDate fecha_nacimiento;
+	private int numero;
+	private String direccion;
+	private String mail;
+	private String ciudad;
+	
+	public Contacto(String nombre, String apellido,String fecha,int numero,String direccion, String mail,String ciudad) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fecha_nacimiento = LocalDate.parse(fecha);
+		this.numero = numero;
+		this.direccion = direccion;
+		this.mail = mail;
+		this.ciudad = ciudad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public int getEdad() {
+		return LocalDate.now().getYear() - fecha_nacimiento.getYear();
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+	
+	
+}

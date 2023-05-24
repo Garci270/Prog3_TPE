@@ -1,0 +1,91 @@
+package Programacion1;
+
+public class Arr20{
+	public static int MAX = 3;
+	public static int MAXMAT = 15;
+	public static void main(String[]args){
+		int[][] mat = {{0,6,7,9,0,0,6,7,9,0,0,2,1,4,0},
+						{0,6,7,9,0,0,6,7,9,0,0,2,1,4,0},
+						{0,6,7,9,0,0,6,7,9,0,0,2,1,4,0},
+						{0,6,7,9,0,0,6,7,9,0,0,2,1,4,0},
+						{0,6,7,9,0,0,6,7,9,0,0,2,1,4,0},
+						{0,6,7,9,0,0,6,7,9,0,0,2,1,4,0}};
+		int [] arr = {1,4,5};
+		eliminar_secuencias(mat,arr);
+		for(int i = 0; i < 6; i++) {
+			System.out.println();
+			imprimir_arreglo(arr);
+		}
+}
+
+	public static void eliminar_secuencias(int[][]mat,int[]arr){
+		for(int i = 0; i < MAX; i++){
+			buscar_sec(mat[arr[i]]);
+		}
+	}
+
+	public static void buscar_sec(int[]mat){
+		int contador = 0;
+		int pos = MAXMAT-1;
+		int inicio = 0;
+		int fin = 0;
+		while(contador < 3 && pos > 0){
+			fin = buscar_fin(mat,pos);
+			inicio = buscar_inicio(mat,fin);
+			pos = fin;
+			if(tiene_3_inpar(mat,inicio,fin)){
+				if(contador > 0){
+					eliminar_secuencia(mat,inicio,fin);
+					contador++;
+				}else{
+					contador++;
+				}
+			}
+		pos--;
+		}
+	}
+
+	public static int buscar_fin(int[]arr,int pos){
+		int fin = pos;
+		while(fin > 0 && arr[fin] == 0){
+			fin--;
+		}
+		return fin;
+	}
+
+	public static int buscar_inicio(int[]arr,int pos){
+		int inicio = pos;
+		while(inicio > 0 && arr[inicio-1] != 0){
+			inicio--;
+		}
+		return inicio;
+	}
+
+	public static void eliminar_secuencia(int[]arr,int inicio,int fin){
+		while(fin >= inicio){
+			arr[fin] = arr[fin+1];
+			fin--;
+		}
+	}
+	
+	public static boolean tiene_3_inpar(int[]arr,int inicio,int fin){
+		boolean tiene = false;
+		int contador = 0;
+		for(int i = inicio; i <= fin; i++){
+			if(arr[i] % 2 != 0){
+				contador++;
+			}
+		}
+		if(contador == 3){
+			tiene = true;
+		}
+		return tiene;
+	}
+	
+	public static void imprimir_arreglo(int []arr) {
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+
+}

@@ -1,0 +1,9 @@
+package PracticaParcialito;
+
+import java.util.ArrayList;
+
+public abstract class ElementoHospital {
+	public abstract int totalCamas();
+	public abstract ElementoHospital copia(Filtro f1);
+	public abstract ArrayList<ElementoHospital> camaDisponible();
+}
